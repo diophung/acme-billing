@@ -20,6 +20,6 @@ namespace Acme.Billing.Repository.Interface
         /// Send multiple emails
         /// </summary>
         /// <param name="emails"></param>
-        void SendMultiple(IList<Email> emails);
+        void SendMultiple(IEnumerable<Email> emails);
     }
 }

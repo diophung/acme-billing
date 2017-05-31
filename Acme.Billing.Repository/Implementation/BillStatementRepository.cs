@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using Acme.Billing.DomainModel;
 using Acme.Billing.Infrastructure;
@@ -26,24 +24,40 @@ namespace Acme.Billing.Repository.Implementation
 
         /// <summary>
         /// Keep track of the customers who have been billed.
-        /// The key is in format of customerID_month_year.
+        /// 
+        /// The key is in format of customerID_month_year,
         /// The value is the list of customer who are billed.
         /// </summary>
-        protected readonly IDictionary<string, BillStatement> billedCustomerByMonth;
+        protected internal IDictionary<string, BillStatement> billedCustomerByTime;
 
         /// <summary>
         /// Keep track of the customers who have been emailed.
-        /// The key is in format of customerID_month_year.
+        /// 
+        /// The key is in format of customerID_month_year,
         /// The value is the email to send to that customer.
         /// </summary>
-        protected readonly IDictionary<string, Email> emailedCustomerByMonth;
+        protected internal IDictionary<string, Email> emailedCustomerByTime;
+
+        /// <summary>
+        /// Store the billing summary.
+        /// 
+        /// The key is in format month_year,
+        /// The value is the billing summary.
+        /// </summary>
+        protected internal IDictionary<string, BillingSummary> billingSummaryByTime;
+
+        protected internal IDictionary<string, ISet<Email>> invoiceGeneratedByTime;
 
         public BillStatementRepository(IEmailRepository emailRepository, ICustomerRepository customerRepository)
         {
+            //Dependency injection
             this.emailRepository = emailRepository;
             this.customerRepository = customerRepository;
-            this.billedCustomerByMonth = new Dictionary<string, BillStatement>();
-            this.emailedCustomerByMonth = new Dictionary<string, Email>();
+
+            this.billedCustomerByTime = new Dictionary<string, BillStatement>();
+            this.emailedCustomerByTime = new Dictionary<string, Email>();
+            this.billingSummaryByTime = new Dictionary<string, BillingSummary>();
+            this.invoiceGeneratedByTime = new Dictionary<string, ISet<Email>>();
         }
 
         /// <summary>
@@ -86,7 +100,6 @@ namespace Acme.Billing.Repository.Implementation
             }
         }
 
-
         /// <summary>
         /// Generate the bill for a customer.
         /// Note: 
@@ -98,21 +111,20 @@ namespace Acme.Billing.Repository.Implementation
         /// <returns></returns>
         public BillStatement GenerateBill(Customer cust, int month, int year)
         {
-            string key = $"{month}_{year}_{cust.CustomerId}";
-
+            string billedCustomerKey = $"{month}_{year}_{cust.CustomerId}";
             // if the bill is not generated, create it
-            if (billedCustomerByMonth[key] == null)
+            if (billedCustomerByTime[billedCustomerKey] == null)
             {
                 decimal? amountDue = GetAmountDue(cust, month, year);
                 BillStatement bill = new BillStatement(cust, month, year, amountDue.GetValueOrDefault());
 
                 //remember the bill statement for the month
-                billedCustomerByMonth[key] = bill;
+                billedCustomerByTime[billedCustomerKey] = bill;
                 return bill;
             }
 
             // if the bill has been generated, just retrieve it.
-            return billedCustomerByMonth[key];
+            return billedCustomerByTime[billedCustomerKey];
         }
 
         /// <summary>
@@ -127,37 +139,41 @@ namespace Acme.Billing.Repository.Implementation
             // Billing service does not support future date
             if (!DateTimeHelper.IsInFuture(month, year))
             {
-                IList<Email> emails = new List<Email>();
+                ISet<Email> emails = new HashSet<Email>();
+                string datetimeStamp = $"{month}_{year}";
                 IList<Customer> allActiveCustomers = this.customerRepository.GetAllActiveCustomers();
-
-                foreach (Customer cust in allActiveCustomers)
+                
+                foreach (Customer customer in allActiveCustomers)
                 {
-                    //Should not block the whole billing cycle if a customer failed 
                     try
                     {
-                        BillStatement bill = GenerateBill(cust, month, year);
-                        string emailedCustomer = $"{cust.CustomerId}_{month}_{year}";
+                        BillStatement bill = GenerateBill(customer, month, year);
 
                         // only send email if we have not done that.
-                        if (!emailedCustomerByMonth.ContainsKey(emailedCustomer))
+                        string emailedCustomerKey = $"{customer.CustomerId}_{month}_{year}";
+                        if (emailedCustomerByTime.ContainsKey(emailedCustomerKey))
                         {
                             Email email = GenerateEmail(bill, month, year);
-                            // remember the customer
-                            emailedCustomerByMonth[emailedCustomer] = email;
+                            
+                            // remember the customer who was emailed
+                            emailedCustomerByTime[emailedCustomerKey] = email;
                             emails.Add(email);
                         }
                     }
+                    //Should not block the whole billing cycle if a customer failed 
                     catch (Exception ex)
                     {
                         Logger.Error(ex);
-                        Logger.Error($"Unable to generate bill for {cust.CustomerId}:{cust.Name} for the {month}-{year}");
+                        Logger.Error($"Unable to generate bill for {customer.CustomerId}:{customer.Name} for the {month}-{year}");
                     }
                 }
 
-                this.emailRepository.SendMultiple(emails);
+                //storing the generated email for reporting purpose
+                invoiceGeneratedByTime[datetimeStamp] = emails;
+                emailRepository.SendMultiple(emails);
             }
         }
-
+        
         /// <summary>
         /// Generate an email content based on the time and the bill statement.
         /// </summary>
@@ -167,7 +183,6 @@ namespace Acme.Billing.Repository.Implementation
         /// <returns></returns>
         public Email GenerateEmail(BillStatement bill, int month, int year)
         {
-            string key = $"{bill.Customer.CustomerId}";
             string emailTemplate = DomainResources.BILLING_STATEMENT_EMAIL_TEMPLATE;
             string subject = $"Billing statement for {month}-{year}";
 
@@ -178,9 +193,25 @@ namespace Acme.Billing.Repository.Implementation
                 .Replace("{state}", bill.Customer.Address)
                 .Replace("{zip}", bill.Customer.Address)
                 .Replace("{bill_month}", month + "-" + year)
-                .Replace("{amount_due}", bill.AmountDue.ToString("{0:C}"));
+                .Replace("{amount_due}", bill.AmountDue.ToString("C"));
 
-            return new Email(subject, content, bill.Customer);
+            return new Email(subject, content, bill.Customer, bill);
+        }
+
+        /// <summary>
+        /// Retrieve the generated and sent invoices by month and year
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public IEnumerable<Email> GetInvoices(int month, int year)
+        {
+            string key = $"{month}_{year}";
+            if (invoiceGeneratedByTime.ContainsKey(key))
+            {
+                return invoiceGeneratedByTime[key];
+            }
+            return new List<Email>();
         }
     }
 }

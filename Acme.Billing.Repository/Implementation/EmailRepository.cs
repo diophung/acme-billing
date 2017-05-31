@@ -8,7 +8,7 @@ using Acme.Billing.Repository.Interface;
 
 namespace Acme.Billing.Repository.Implementation
 {
-    public class EmailRepository : IEmailRepository
+    public class EmailRepository : RepositoryBase, IEmailRepository
     {
         public EmailRepository()
         {
@@ -20,7 +20,7 @@ namespace Acme.Billing.Repository.Implementation
             throw new NotImplementedException();
         }
 
-        public void SendMultiple(IList<Email> emails)
+        public void SendMultiple(IEnumerable<Email> emails)
         {
             throw new NotImplementedException();
         }

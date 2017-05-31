@@ -123,4 +123,9 @@ Thank you for using Acme Water (TM) for your address at {address} {city}, {state
 Warm Regards,
 Acme Water (TM)</value>
   </data>
+  <data name="INVOICE_REPORT_TEMPLATE_BY_TIME" xml:space="preserve">
+    <value>Report for : {month}_{year}. 
+Total invoices: {total_invoice}.
+Total amount billed: {total_amount_billed}</value>
+  </data>
 </root>

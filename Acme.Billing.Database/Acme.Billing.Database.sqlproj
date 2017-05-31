@@ -62,6 +62,8 @@
     <Build Include="Customer.sql" />
     <Build Include="BillStatement.sql" />
     <Build Include="Report.sql" />
+    <Build Include="Email.sql" />
+    <Build Include="BillingSummary.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Acme.Billing.Database.refactorlog" />

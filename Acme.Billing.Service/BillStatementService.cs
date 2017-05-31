@@ -8,5 +8,9 @@ namespace Acme.Billing.Service
 {
     public class BillStatementService
     {
+        public BillStatementService()
+        {
+            
+        }
     }
 }

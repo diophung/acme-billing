@@ -71,5 +71,16 @@ namespace Acme.Billing.Repository.Resource {
                 return ResourceManager.GetString("BILLING_STATEMENT_EMAIL_TEMPLATE", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report for : {month}_{year}. 
+        ///Total invoices: {total_invoice}.
+        ///Total amount billed: {total_amount_billed}.
+        /// </summary>
+        internal static string INVOICE_REPORT_TEMPLATE_BY_TIME {
+            get {
+                return ResourceManager.GetString("INVOICE_REPORT_TEMPLATE_BY_TIME", resourceCulture);
+            }
+        }
     }
 }

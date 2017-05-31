@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[Email]
+(
+    [RowId] BIGINT NOT NULL PRIMARY KEY, 
+    [EmailId] UNIQUEIDENTIFIER NOT NULL, 
+    [Subject] NCHAR(255) NULL, 
+    [Content] TEXT NULL, 
+    [CustomerId] UNIQUEIDENTIFIER NOT NULL, 
+    [BillStatementId] UNIQUEIDENTIFIER NOT NULL
+)

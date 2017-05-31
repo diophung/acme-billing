@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Billing.DomainModel", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Billing.Repository", "Acme.Billing.Repository\Acme.Billing.Repository.csproj", "{D2CF0355-7B2B-41E5-82D3-2F7ECC688FD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Billing.Service", "Acme.Billing.Service\Acme.Billing.Service.csproj", "{B7DBE8EF-D47A-46C5-BF03-13D98FBEDFA7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acme.Billing.Infrastructure", "Acme.Billing.Infrastructure\Acme.Billing.Infrastructure.csproj", "{63673FBE-2F9A-4BF8-8E52-E70528970A64}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Acme.Billing.Database", "Acme.Billing.Database\Acme.Billing.Database.sqlproj", "{71077203-BB71-494F-A90E-6F8CA3B4A3C1}"
@@ -37,10 +35,6 @@ Global
 		{D2CF0355-7B2B-41E5-82D3-2F7ECC688FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CF0355-7B2B-41E5-82D3-2F7ECC688FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CF0355-7B2B-41E5-82D3-2F7ECC688FD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7DBE8EF-D47A-46C5-BF03-13D98FBEDFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7DBE8EF-D47A-46C5-BF03-13D98FBEDFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7DBE8EF-D47A-46C5-BF03-13D98FBEDFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7DBE8EF-D47A-46C5-BF03-13D98FBEDFA7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{63673FBE-2F9A-4BF8-8E52-E70528970A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{63673FBE-2F9A-4BF8-8E52-E70528970A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63673FBE-2F9A-4BF8-8E52-E70528970A64}.Release|Any CPU.ActiveCfg = Release|Any CPU

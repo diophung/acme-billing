@@ -10,8 +10,12 @@ index key, rounded up to the nearest power of two.
 CREATE TABLE [dbo].[Customer]
 (
     [RowId] INT NOT NULL PRIMARY KEY NONCLUSTERED HASH WITH (BUCKET_COUNT = 131072), 
-    [CustomerId] UNIQUEIDENTIFIER NULL, 
-    [Name] NCHAR(100) NULL, 
+    [CustomerId] UNIQUEIDENTIFIER NOT NULL, 
+    [Name] NCHAR(100) NOT NULL, 
     [Email] NCHAR(100) NULL, 
-    [IsActive] BIT NULL 
+    [IsActive] BIT NOT NULL, 
+    [Address] NCHAR(100) NULL, 
+    [City] NCHAR(100) NULL, 
+    [State] NCHAR(2) NULL, 
+    [Zip] NCHAR(5) NULL 
 ) WITH (MEMORY_OPTIMIZED = ON)

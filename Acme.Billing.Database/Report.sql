@@ -4,5 +4,6 @@
     [CustomerId] NCHAR(255) NOT NULL, 
     [Content] NVARCHAR(MAX) NOT NULL, 
     [Month] INT NOT NULL, 
-    [Year] INT NOT NULL
+    [Year] INT NOT NULL, 
+    [ReportId] UNIQUEIDENTIFIER NOT NULL
 )

@@ -1,4 +1,5 @@
-﻿using Acme.Billing.DomainModel;
+﻿using System.Collections.Generic;
+using Acme.Billing.DomainModel;
 
 namespace Acme.Billing.Repository.Interface
 {
@@ -40,5 +41,13 @@ namespace Acme.Billing.Repository.Interface
         /// <param name="month"></param>
         /// <param name="year"></param>
         void SendBillToActiveCustomers(int month, int year);
+
+        /// <summary>
+        /// Retrieve the generated email by month and year
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        IEnumerable<Email> GetInvoices(int month, int year);
     }
 }

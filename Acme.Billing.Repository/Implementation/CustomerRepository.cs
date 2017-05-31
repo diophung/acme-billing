@@ -9,7 +9,7 @@ namespace Acme.Billing.Repository.Implementation
     /// <summary>
     /// Handling customer management tasks.
     /// </summary>
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : RepositoryBase, ICustomerRepository
     {
         //The index of each column in CSV file
         const int COLUMN_UUID = 0;
@@ -26,7 +26,7 @@ namespace Acme.Billing.Repository.Implementation
 
         /// <summary>
         /// Storing the customers in ACME system.
-        /// The key is customer ID, the value is customer data.
+        /// The key is customer ID, value is the customer object.
         /// </summary>
         protected static readonly IDictionary<string, Customer> CustomerPool;
 

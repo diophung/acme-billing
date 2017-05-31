@@ -4,6 +4,8 @@
     [CustomerId] UNIQUEIDENTIFIER NOT NULL, 
     [BillStatementId] UNIQUEIDENTIFIER NOT NULL, 
     [AmountDue] DECIMAL(18, 6) NOT NULL, 
-    [Month] INT NOT NULL, 
-    [Year] INT NOT NULL
+    [StatementMonth] INT NOT NULL, 
+    [StatementYear] INT NOT NULL, 
+    [IsSent] BIT NOT NULL, 
+    [GeneratedDateTime] DATETIME NOT NULL
 )

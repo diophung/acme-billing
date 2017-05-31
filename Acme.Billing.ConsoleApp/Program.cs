@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Acme.Billing.ConsoleApp
 {
@@ -10,6 +6,8 @@ namespace Acme.Billing.ConsoleApp
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Enter the path to the customer CSV file:");
+            string csvPath = Console.ReadLine();
         }
     }
 }
