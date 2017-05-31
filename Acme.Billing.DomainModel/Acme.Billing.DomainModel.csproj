@@ -42,10 +42,8 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="BillStatement.cs" />
-    <Compile Include="Month.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="Report.cs" />
-    <Compile Include="UpdateableEntity.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@
 namespace Acme.Billing.Repository.Interface
 {
     /// <summary>
-    /// Perform 
+    /// Perform the report tasks
     /// </summary>
     public interface IReportRepository
     {
@@ -13,6 +13,6 @@ namespace Acme.Billing.Repository.Interface
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        Report GetSystemReport(int month, int year);
+        Report GetCustomerReport(int month, int year);
     }
 }

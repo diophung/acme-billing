@@ -6,19 +6,26 @@ using Moq;
 namespace Acme.Billing.UnitTest
 {
     [TestClass]
-    public class CustomerRepositoryTests
+    public class CustomerRepositoryTests : UnitTestBase
     {
         private Mock<ICustomerRepository> customerRepositoryMock;
 
         [TestInitialize]
-        public void Initialize()
+        public override void Initialize()
         {
             customerRepositoryMock = new Mock<ICustomerRepository>();
         }
 
-        [TestMethod]
-        public void TestMethod1()
+        [TestCleanup]
+        public override void Cleanup()
         {
+            
+        }
+
+        [TestMethod]
+        public void UpdateExistingCustomerTest()
+        {
+
         }
     }
 }

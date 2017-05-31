@@ -4,6 +4,9 @@ using Acme.Billing.DomainModel;
 
 namespace Acme.Billing.Repository.Interface
 {
+    /// <summary>
+    /// Perform tasks related to email
+    /// </summary>
     public interface IEmailRepository
     {
         /// <summary>

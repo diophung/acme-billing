@@ -63,11 +63,16 @@
     <Compile Include="DateTimeHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomerRepositoryTests.cs" />
+    <Compile Include="UnitTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Acme.Billing.Infrastructure\Acme.Billing.Infrastructure.csproj">
+      <Project>{63673FBE-2F9A-4BF8-8E52-E70528970A64}</Project>
+      <Name>Acme.Billing.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Acme.Billing.Repository\Acme.Billing.Repository.csproj">
       <Project>{D2CF0355-7B2B-41E5-82D3-2F7ECC688FD1}</Project>
       <Name>Acme.Billing.Repository</Name>

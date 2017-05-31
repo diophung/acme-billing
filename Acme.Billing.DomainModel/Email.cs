@@ -17,8 +17,8 @@ namespace Acme.Billing.DomainModel
             this.Content = content;
             this.Customer = cust;
         }
-        public string Subject { get; }
-        public string Content { get; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
         public Customer Customer { get; }
     }
 }

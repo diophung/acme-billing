@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Acme.Billing.Infrastructure
 {
@@ -10,13 +6,14 @@ namespace Acme.Billing.Infrastructure
     {
         /// <summary>
         /// Verify if the month and year is in the future.
+        /// The day to be used will be the first day of the month.
         /// </summary>
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
         public static bool IsInFuture(int month, int year)
         {
-            DateTime dt = new DateTime(year, month, DateTime.Now.Day);
+            DateTime dt = new DateTime(year, month, 1);
             return dt.Date > DateTime.Now.Date;
         }
     }
