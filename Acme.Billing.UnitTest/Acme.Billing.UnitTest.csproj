@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Acme.Billing.DomainModel\Acme.Billing.DomainModel.csproj">
+      <Project>{60439F66-B1BB-4952-A981-FCE827F220DB}</Project>
+      <Name>Acme.Billing.DomainModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Acme.Billing.Infrastructure\Acme.Billing.Infrastructure.csproj">
       <Project>{63673FBE-2F9A-4BF8-8E52-E70528970A64}</Project>
       <Name>Acme.Billing.Infrastructure</Name>

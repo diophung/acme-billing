@@ -12,10 +12,10 @@ CREATE TABLE [dbo].[Customer]
     [RowId] INT NOT NULL PRIMARY KEY NONCLUSTERED HASH WITH (BUCKET_COUNT = 131072), 
     [CustomerId] UNIQUEIDENTIFIER NOT NULL, 
     [Name] NCHAR(100) NOT NULL, 
-    [Email] NCHAR(100) NULL, 
+    [Email] NCHAR(100) NOT NULL, 
     [IsActive] BIT NOT NULL, 
-    [Address] NCHAR(100) NULL, 
-    [City] NCHAR(100) NULL, 
-    [State] NCHAR(2) NULL, 
-    [Zip] NCHAR(5) NULL 
+    [Address] NCHAR(100) NOT NULL, 
+    [City] NCHAR(100) NOT NULL, 
+    [State] NCHAR(2) NOT NULL, 
+    [Zip] NCHAR(5) NOT NULL 
 ) WITH (MEMORY_OPTIMIZED = ON)

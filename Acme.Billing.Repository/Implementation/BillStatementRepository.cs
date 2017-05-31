@@ -118,7 +118,9 @@ namespace Acme.Billing.Repository.Implementation
                 decimal? amountDue = GetAmountDue(cust, month, year);
                 BillStatement bill = new BillStatement(cust, month, year, amountDue.GetValueOrDefault());
 
-                //remember the bill statement for the month
+                cust.MonthlyStatements.Add(bill);
+                customerRepository.SaveOrUpdate(cust);
+                //remember customer bill statement for the month
                 billedCustomerByTime[billedCustomerKey] = bill;
                 return bill;
             }

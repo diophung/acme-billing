@@ -21,11 +21,6 @@ namespace Acme.Billing.UnitTest
         {
             
         }
-
-        [TestMethod]
-        public void UpdateExistingCustomerTest()
-        {
-
-        }
+        
     }
 }

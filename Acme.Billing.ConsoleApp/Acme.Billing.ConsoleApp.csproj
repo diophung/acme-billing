@@ -33,6 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=3.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.5.154\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.5.154\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +60,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Acme.Billing.DomainModel\Acme.Billing.DomainModel.csproj">
+      <Project>{60439f66-b1bb-4952-a981-fce827f220db}</Project>
+      <Name>Acme.Billing.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acme.Billing.Infrastructure\Acme.Billing.Infrastructure.csproj">
+      <Project>{63673fbe-2f9a-4bf8-8e52-e70528970a64}</Project>
+      <Name>Acme.Billing.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Acme.Billing.Repository\Acme.Billing.Repository.csproj">
+      <Project>{d2cf0355-7b2b-41e5-82d3-2f7ecc688fd1}</Project>
+      <Name>Acme.Billing.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

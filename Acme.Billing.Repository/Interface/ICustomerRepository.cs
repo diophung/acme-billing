@@ -29,5 +29,12 @@ namespace Acme.Billing.Repository.Interface
         /// </summary>
         /// <returns></returns>
         IList<Customer> GetAllActiveCustomers();
+
+
+        /// <summary>
+        /// Persist the customer information.
+        /// </summary>
+        /// <param name="customer"></param>
+        void SaveOrUpdate(Customer customer);
     }
 }
