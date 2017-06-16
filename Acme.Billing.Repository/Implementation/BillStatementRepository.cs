@@ -153,7 +153,7 @@ namespace Acme.Billing.Repository.Implementation
 
                         // only send email if we have not done that.
                         string emailedCustomerKey = $"{customer.CustomerId}_{month}_{year}";
-                        if (emailedCustomerByTime.ContainsKey(emailedCustomerKey))
+                        if (!emailedCustomerByTime.ContainsKey(emailedCustomerKey))
                         {
                             Email email = GenerateEmail(bill, month, year);
                             
